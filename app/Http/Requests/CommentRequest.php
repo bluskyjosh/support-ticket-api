@@ -34,8 +34,25 @@ class CommentRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = [];
+        switch ($this->method()){
+            case 'POST':
+                $rules = [
+                    'comment' => 'required|string'
+                ];
+                break;
+            case 'PUT':
+            case 'PATCH':
+                $rules = [
+                    'comment' => 'required|string'
+                ];
+                break;
+            case 'DELETE':
+            case 'GET':
+            default:
+                break;
+        }
+
+        return $rules;
     }
 }

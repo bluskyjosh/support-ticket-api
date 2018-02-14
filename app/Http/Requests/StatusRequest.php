@@ -34,8 +34,27 @@ class StatusRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = [];
+        switch ($this->method()){
+            case 'POST':
+                $rules = [
+                    'name' => 'required|string|max:191',
+                    'description' => 'string|max:191'
+                ];
+                break;
+            case 'PUT':
+            case 'PATCH':
+                $rules = [
+                    'name' => 'required|string|max:191',
+                    'description' => 'string|max:191'
+                ];
+                break;
+            case 'DELETE':
+            case 'GET':
+            default:
+                break;
+        }
+
+        return $rules;
     }
 }

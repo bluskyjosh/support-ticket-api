@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 
 
 class UserRequest extends Request
@@ -35,8 +36,36 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = [];
+        switch ($this->method()){
+            case 'POST':
+                $rules = [
+                    'name' => 'required|string|max:191',
+                    'email' => [
+                        'required',
+                        'email',
+                        Rule::unique('users')
+                    ],
+                    'password' => 'string|min:8|max:191'
+                ];
+                break;
+            case 'PUT':
+            case 'PATCH':
+                $rules = [
+                    'name' => 'string|max:191',
+                    'email' => [
+                        'email',
+                        Rule::unique('users')
+                    ],
+                    'password' => 'string|min:8|max:191'
+                ];
+                break;
+            case 'DELETE':
+            case 'GET':
+            default:
+                break;
+        }
+
+        return $rules;
     }
 }

@@ -14,14 +14,16 @@ use Illuminate\Http\Request;
 */
 
 //login and out routes route
-Route::post('authenticate',['as'=>'authenticate','uses'=>'v1\Web\AuthenticateController@login']);
-Route::get('user_from_token',['as'=>'user_from_token', 'uses'=> 'v1\Web\AuthenticateController@me']);
-Route::post('logout', ['as'=> 'logout', 'uses' => 'v1\Web\AuthenticateController@logout']);
+Route::post('authenticate',['as'=>'authenticate','uses'=>'AuthController@login']);
+Route::get('user_from_token',['as'=>'user_from_token', 'uses'=> 'AuthController@me']);
+Route::post('logout', ['as'=> 'logout', 'uses' => 'AuthController@logout']);
+Route::post('register', ['as' => 'register', 'uses' => 'AuthController@register']);
 
 
 //Authenticated user Routes
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('categories', 'CategoryController', ['except' => ['create', 'edit']]);
+    Route::resource('my_tickets', 'UserTicketController', ['except' => ['create', 'edit']]);
     Route::resource('priorities', 'PriorityController', ['except' => ['create', 'edit']]);
     Route::resource('statuses', 'StatusController', ['except' => ['create', 'edit']]);
     Route::resource('tickets', 'TicketController', ['except' => ['create', 'edit']]);

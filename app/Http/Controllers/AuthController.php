@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Mockery\Exception;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -13,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -28,9 +35,6 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
-            $user = $this->guard()->user();
-            $user->last_login = Carbon::now();
-            $user->save();
             return $this->respondWithToken($token);
         }
 
@@ -57,6 +61,26 @@ class AuthController extends Controller
         $this->guard()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function register(RegisterRequest $request) {
+        $data = $request->all();
+
+        try {
+            if ($data['password'] === $data['confirm_password']) {
+                $user = new User($data);
+                $user->setPassword($data['password']);
+                $user->save();
+            }
+            else{
+                return Response::create(["message" => "Password and confirm password must match."], 422);
+            }
+        }
+        catch( \Exception $ex){
+            throw $ex;
+        }
+
+        return Response::create($user, 200);
     }
 
     /**

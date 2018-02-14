@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, SoftDeletes;
 
@@ -52,5 +54,22 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class, 'updated_by_id');
     }
     #endrelationships
+
+    #region Public Methods
+    public function setPassword(string $new_password){
+        $this->password = bcrypt($new_password);
+    }
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+    #endregion
 
 }

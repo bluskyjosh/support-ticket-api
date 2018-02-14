@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class UserTicketRequest extends FormRequest
+use Illuminate\Validation\Rule;
+
+class UserTicketRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,8 +35,45 @@ class UserTicketRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $rules = [];
+        switch ($this->method()){
+            case 'POST':
+                $rules = [
+                    'category_id' => 'required|integer',
+                    'priority_id' => 'required|integer',
+                    'ticket_id' => [
+                        'string',
+                        Rule::unique('tickets')
+                    ],
+                    'title' => 'required|string|max:191',
+                    'description' => 'required|string',
+                    'status_id' => 'integer',
+                    'created_by_id' => 'integer',
+                    'updated_by_id' => 'integer'
+                ];
+                break;
+            case 'PUT':
+            case 'PATCH':
+                $rules = [
+                    'category_id' => 'integer',
+                    'priority_id' => 'integer',
+                    'ticket_id' => [
+                        'string',
+                        Rule::unique('tickets')
+                    ],
+                    'title' => 'string|max:191',
+                    'description' => 'string',
+                    'status_id' => 'integer',
+                    'created_by_id' => 'integer',
+                    'updated_by_id' => 'integer'
+                ];
+                break;
+            case 'DELETE':
+            case 'GET':
+            default:
+                break;
+        }
+
+        return $rules;
     }
 }

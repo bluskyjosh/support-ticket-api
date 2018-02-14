@@ -6,7 +6,7 @@ use App\Http\Requests\PriorityRequest;
 use App\Priority;
 use Illuminate\Http\Request;
 
-class PriorityController extends Controller
+class PriorityController extends AuthController
 {
     //
 

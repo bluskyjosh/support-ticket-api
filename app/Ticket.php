@@ -15,12 +15,15 @@ class Ticket extends Model
     protected $fillable = [
         'category_id',
         'priority_id',
-        'ticket_id',
         'title',
         'description',
         'status_id',
         'created_by_id',
         'updated_by_id'
+    ];
+
+    protected $guarded = [
+        'ticket_id'
     ];
 
     protected $dates = [
@@ -54,6 +57,13 @@ class Ticket extends Model
     public function updated_by() {
         return $this->belongsTo(User::class, 'updated_by_id');
     }
+    #endregion
 
+    #region Public Methods
+    public function delete()
+    {
+        $this->comments()->delete();
+        return parent::delete();
+    }
     #endregion
 }

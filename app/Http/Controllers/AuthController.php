@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    protected $user = null;
     /**
      * Create a new AuthController instance.
      *
@@ -21,6 +22,9 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->user = $this->getUserFromToken();
+
+
     }
 
     /**
@@ -118,8 +122,22 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Contracts\Auth\Guard
      */
-    public function guard()
+    protected function guard()
     {
         return Auth::guard();
+    }
+
+    protected function getUserFromToken()
+    {
+        try {
+            return $this->guard()->user();
+        }
+        catch(\Exception $exception){
+            return null;
+        }
+    }
+
+    public function currentUser(){
+        return $this->user;
     }
 }

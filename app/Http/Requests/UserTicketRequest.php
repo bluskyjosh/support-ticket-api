@@ -42,10 +42,6 @@ class UserTicketRequest extends Request
                 $rules = [
                     'category_id' => 'required|integer',
                     'priority_id' => 'required|integer',
-                    'ticket_id' => [
-                        'string',
-                        Rule::unique('tickets')
-                    ],
                     'title' => 'required|string|max:191',
                     'description' => 'required|string',
                     'status_id' => 'integer',
@@ -58,10 +54,6 @@ class UserTicketRequest extends Request
                 $rules = [
                     'category_id' => 'integer',
                     'priority_id' => 'integer',
-                    'ticket_id' => [
-                        'string',
-                        Rule::unique('tickets')
-                    ],
                     'title' => 'string|max:191',
                     'description' => 'string',
                     'status_id' => 'integer',

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 
 
-class CategoryController extends Controller
+class CategoryController extends AuthController
 {
     //
 

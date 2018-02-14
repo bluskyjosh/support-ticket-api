@@ -6,7 +6,7 @@ use App\Http\Requests\StatusRequest;
 use Illuminate\Http\Request;
 use App\Status;
 
-class StatusController extends Controller
+class StatusController extends AuthController
 {
     //
 

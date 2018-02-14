@@ -15,13 +15,12 @@ class UserRequest extends Request
     public function authorize()
     {
         switch ($this->method()){
+            case 'POST':
+            case 'GET':
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
                 return $this->isAdmin();
-            case 'POST':
-            case 'GET':
-                return true;
             default:
                 return false;
 

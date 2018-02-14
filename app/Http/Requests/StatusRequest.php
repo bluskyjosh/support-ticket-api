@@ -45,7 +45,7 @@ class StatusRequest extends Request
             case 'PUT':
             case 'PATCH':
                 $rules = [
-                    'name' => 'required|string|max:191',
+                    'name' => 'string|max:191',
                     'description' => 'string|max:191'
                 ];
                 break;

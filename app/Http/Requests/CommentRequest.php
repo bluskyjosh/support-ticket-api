@@ -44,7 +44,7 @@ class CommentRequest extends Request
             case 'PUT':
             case 'PATCH':
                 $rules = [
-                    'comment' => 'required|string'
+                    'comment' => 'string'
                 ];
                 break;
             case 'DELETE':

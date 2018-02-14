@@ -9,12 +9,23 @@ use Ramsey\Uuid\Uuid;
 
 class TicketController extends AuthController
 {
-    //
-
+    /***
+     * Returns list of all Ticket Objects
+     *
+     * @param TicketRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(TicketRequest $request) {
         return $this->response(Ticket::all(), 200);
     }
 
+    /***
+     * Creates a new Ticket Object.
+     *
+     * @param TicketRequest $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store(TicketRequest $request) {
         $data = $request->all();
         $this->beginTransaction();
@@ -33,11 +44,25 @@ class TicketController extends AuthController
         return $this->response($ticket,200);
     }
 
+    /***
+     * Returns Ticket Object with $id.
+     *
+     * @param TicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(TicketRequest $request, int $id) {
         $ticket = Ticket::with(['comments'])->findOrFail($id);
         return $this->response($ticket,200);
     }
 
+    /***
+     * Updates Ticket Object with $id.
+     *
+     * @param TicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(TicketRequest $request, int $id) {
         $ticket = Ticket::findOrFail($id);
         $data = $request->all();
@@ -56,6 +81,14 @@ class TicketController extends AuthController
 
     }
 
+    /***
+     * Deletes Ticket Object with $id.
+     *
+     * @param TicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function destroy(TicketRequest $request, int $id) {
         $ticket = Ticket::findOrFail($id);
         $this->beginTransaction();

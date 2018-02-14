@@ -8,13 +8,24 @@ use Illuminate\Http\Request;
 
 class PriorityController extends AuthController
 {
-    //
-
+    /***
+     * Return list of Priority Objects
+     *
+     * @param PriorityRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(PriorityRequest $request) {
         return $this->response(Priority::all(), 200);
 
     }
 
+    /***
+     * Creates a new Priority Object.
+     *
+     * @param PriorityRequest $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store(PriorityRequest $request) {
         $data = $request->all();
         $this->beginTransaction();
@@ -31,12 +42,27 @@ class PriorityController extends AuthController
 
     }
 
+    /***
+     * Returns Priority Object with corresponding $id.
+     *
+     * @param PriorityRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(PriorityRequest $request, int $id) {
         $priority = Priority::findOrFail($id);
         return $this->response($priority, 200);
 
     }
 
+    /***
+     * Updates Priority Object with corresponding $id.
+     *
+     * @param PriorityRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function update(PriorityRequest $request, int $id) {
         $priority = Priority::findOrFail($id);
         $data = $request->all();
@@ -56,6 +82,14 @@ class PriorityController extends AuthController
 
     }
 
+    /***
+     * Deletes Priority Object with corresponding $id.
+     *
+     * @param PriorityRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function destroy(PriorityRequest $request, int $id) {
         $priority = Priority::findOrFail($id);
 

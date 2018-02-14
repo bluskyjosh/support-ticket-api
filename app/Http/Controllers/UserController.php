@@ -8,13 +8,24 @@ use App\User;
 
 class UserController extends AuthController
 {
-    //
-
+    /***
+     * Returns list of User Objects.
+     *
+     * @param UserRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(UserRequest $request) {
         return $this->response(User::all(), 200);
 
     }
 
+    /***
+     * Creates a new User Object.
+     *
+     * @param UserRequest $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store(UserRequest $request) {
         $data = $request->all();
         $this->beginTransaction();
@@ -40,12 +51,27 @@ class UserController extends AuthController
 
     }
 
+    /***
+     * Returns User Object with $id.
+     *
+     * @param UserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(UserRequest $request, int $id) {
         $user = User::findOrFail($id);
         return $this->response($user, 200);
 
     }
 
+    /***
+     * Updates user object with $id.
+     *
+     * @param UserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function update(UserRequest $request, int $id) {
         $user = User::findOrFail($id);
         $data = $request->all();
@@ -74,6 +100,14 @@ class UserController extends AuthController
 
     }
 
+    /***
+     * Deletes User Object with $id.
+     *
+     * @param UserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function destroy(UserRequest $request, int $id) {
         $user = User::findOrFail($id);
 

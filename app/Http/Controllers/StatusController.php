@@ -8,13 +8,24 @@ use App\Status;
 
 class StatusController extends AuthController
 {
-    //
-
+    /***
+     * Returns list of Status Objects.
+     *
+     * @param StatusRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(StatusRequest $request) {
         return $this->response(Status::all(), 200);
 
     }
 
+    /***
+     * Creates a new Status Object
+     *
+     * @param StatusRequest $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store(StatusRequest $request) {
         $data = $request->all();
         $this->beginTransaction();
@@ -31,12 +42,27 @@ class StatusController extends AuthController
 
     }
 
+    /***
+     * Returns a Status Object with corresponding $id.
+     *
+     * @param StatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(StatusRequest $request, int $id) {
         $status = Status::findOrFail($id);
         return $this->response($status, 200);
 
     }
 
+    /***
+     * Updates a Status Object with corresponding $id.
+     *
+     * @param StatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function update(StatusRequest $request, int $id) {
         $status = Status::findOrFail($id);
         $data = $request->all();
@@ -56,6 +82,14 @@ class StatusController extends AuthController
 
     }
 
+    /***
+     * Deletes a Status Object with corresponding $id.
+     *
+     * @param StatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function destroy(StatusRequest $request, int $id) {
         $status = Status::findOrFail($id);
 

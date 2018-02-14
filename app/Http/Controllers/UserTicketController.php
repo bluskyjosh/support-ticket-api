@@ -8,11 +8,23 @@ use Ramsey\Uuid\Uuid;
 
 class UserTicketController extends AuthController
 {
-    //
+    /***
+     * Returns list of all Ticket Objects belonging to current user.
+     *
+     * @param UserTicketRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(UserTicketRequest $request) {
         return $this->response($this->currentUser()->tickets,200);
     }
 
+    /***
+     * Creates a new Ticket Object.
+     *
+     * @param UserTicketRequest $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function store(UserTicketRequest $request) {
         $data = $request->all();
         $this->beginTransaction();
@@ -31,12 +43,27 @@ class UserTicketController extends AuthController
         return $this->response($ticket, 200);
     }
 
+
+    /***
+     * Returns Ticket Object with $id.
+     *
+     * @param UserTicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(UserTicketRequest $request, int $id) {
         $ticket = $this->currentUser()->tickets()->with('comments')->findOrFail($id);
         return $this->response($ticket,200);
 
     }
 
+    /***
+     * Updates Ticket Object with $id.
+     *
+     * @param UserTicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(UserTicketRequest $request, int $id) {
         $ticket = $this->currentUser()->tickets()->findOrFail($id);
         $data = $request->all();
@@ -56,6 +83,14 @@ class UserTicketController extends AuthController
         return $this->response($ticket, 200);
     }
 
+    /***
+     * Deletes Ticket Object with $id.
+     *
+     * @param UserTicketRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function delete(UserTicketRequest $request, int $id) {
         $ticket = $this->currentUser()->tickets()->findOrFail($id);
         $this->beginTransaction();

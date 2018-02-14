@@ -13,7 +13,11 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    /***
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     protected $user = null;
+
     /**
      * Create a new AuthController instance.
      *
@@ -67,6 +71,13 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /***
+     * Create a new non-admin user.
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\JsonResponse|static
+     * @throws \Exception
+     */
     public function register(RegisterRequest $request) {
         $data = $request->all();
 
@@ -127,6 +138,10 @@ class AuthController extends Controller
         return Auth::guard();
     }
 
+    /***
+     * Gets User object from JWT.
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     protected function getUserFromToken()
     {
         try {
@@ -137,6 +152,11 @@ class AuthController extends Controller
         }
     }
 
+    /***
+     * Gets the current user.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public function currentUser(){
         return $this->user;
     }

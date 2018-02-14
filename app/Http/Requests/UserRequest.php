@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
-
+use App\Http\Requests\Request;
 
 class UserRequest extends Request
 {
@@ -40,7 +40,8 @@ class UserRequest extends Request
         switch ($this->method()){
             case 'POST':
                 $rules = [
-                    'name' => 'required|string|max:191',
+                    'first_name' => 'required|string|max:191',
+                    'last_name' => 'required|string|max:191',
                     'email' => [
                         'required',
                         'email',

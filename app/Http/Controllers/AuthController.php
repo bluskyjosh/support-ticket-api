@@ -80,7 +80,10 @@ class AuthController extends Controller
             throw $ex;
         }
 
-        return Response::create($user, 200);
+        //create token for new user and return token
+        $token = $this->guard()->login($user);
+
+        return $this->respondWithToken($token);
     }
 
     /**

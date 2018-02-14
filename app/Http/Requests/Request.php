@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+;
 
 class Request extends FormRequest
 {
@@ -35,6 +38,6 @@ class Request extends FormRequest
     }
 
     public function isAdmin() {
-        return $this->user()->is_admin === true;
+        return $this->user()->is_admin == true;
     }
 }

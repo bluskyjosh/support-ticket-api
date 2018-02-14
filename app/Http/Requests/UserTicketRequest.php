@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 
 use Illuminate\Validation\Rule;
+use App\Http\Requests\Request;
 
 class UserTicketRequest extends Request
 {

@@ -7,23 +7,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CommentNotification extends Notification implements ShouldQueue
+class TicketStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $comment;
-
-
+    protected $ticket;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct($ticket)
     {
         //
-        $this->comment = $comment;
-
+        $this->ticket = $ticket;
     }
 
     /**
@@ -45,15 +42,12 @@ class CommentNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->view('emails.comment',[
-                'comment' => $this->comment->comment,
-                'replied_by' => $this->comment->created_by->first_name . ' ' . $this->comment->created_by->last_name,
-                'ticket_title' => $this->comment->ticket->title,
-                'ticket_id' => $this->comment->ticket->ticket_id,
-                'ticket_status' => $this->comment->ticket->status->name,
-                'id' => $this->comment->ticket->id,
-            ]);
+        return (new MailMessage)->view('emails.status',[
+            'first_name' => $this->ticket->created_by->first_name,
+            'ticket' => $this->ticket,
+            'status' => $this->ticket->status->name
+        ]);
+
     }
 
     /**

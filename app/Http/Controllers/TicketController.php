@@ -7,7 +7,9 @@ use App\Ticket;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use App\Notifications\TicketNotification;
+use App\Notifications\TicketStatusNotification;
 use Illuminate\Support\Facades\Notification;
+
 
 class TicketController extends AuthController
 {
@@ -69,12 +71,18 @@ class TicketController extends AuthController
      */
     public function update(TicketRequest $request, int $id) {
         $ticket = Ticket::findOrFail($id);
+        $old_status_id = $ticket->status->id;
         $data = $request->all();
         $this->beginTransaction();
         try {
             $ticket->update($data);
             $ticket->updated_by_id = $this->currentUser()->id;
             $ticket->save();
+
+            // Status has changed, send notification to creator.
+            if($ticket->status_id != $old_status_id) {
+                Notification::send($ticket->created_by, new TicketStatusNotification($ticket));
+            }
         }
         catch(\Exception $ex) {
             $this->rollback();

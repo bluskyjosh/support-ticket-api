@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Ticket;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Notification;
@@ -41,7 +42,14 @@ class TicketCommentController extends AuthController
             $data['created_by_id'] = $this->currentUser()->id;
             $comment = $ticket->comments()->create($data);
 
-            Notification::send($ticket->created_by, new CommentNotification($comment, $this->currentUser()));
+            //Send Notification to all users on the thread except the user who made the comment.
+            $users = new Collection();
+            foreach($ticket->comments as $comment) {
+                if ($comment->created_by->id != $this->currentUser()->id && !$users->contains('id', $comment->created_by->id)){
+                    $users->push($comment->created_by);
+                }
+            }
+            Notification::send($users, new CommentNotification($comment));
         }
         catch (\Exception $ex){
             $this->rollback();

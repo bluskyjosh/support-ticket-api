@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserTicketRequest;
+use App\Mail\TicketNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
@@ -34,6 +36,8 @@ class UserTicketController extends AuthController
             $ticket->updated_by_id = $this->currentUser()->id;
             $ticket->ticket_id = Uuid::uuid4();
             $ticket->save();
+
+            Notification::send([$this->currentUser()->email], new TicketNotification($ticket));
         }
         catch (\Exception $ex) {
             $this->rollback();

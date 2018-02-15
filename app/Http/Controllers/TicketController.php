@@ -6,6 +6,8 @@ use App\Http\Requests\TicketRequest;
 use App\Ticket;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
+use App\Notifications\TicketNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TicketController extends AuthController
 {
@@ -35,6 +37,8 @@ class TicketController extends AuthController
             $ticket->updated_by_id = $this->currentUser()->id;
             $ticket->ticket_id = Uuid::uuid4();
             $ticket->save();
+
+            Notification::send($this->currentUser(), new TicketNotification($ticket));
         }
         catch (\Exception $ex) {
             $this->rollback();

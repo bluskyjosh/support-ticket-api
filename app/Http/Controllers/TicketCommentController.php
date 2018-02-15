@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Ticket;
 use Illuminate\Http\Request;
+use App\Notifications\CommentNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TicketCommentController extends AuthController
 {
@@ -38,6 +40,8 @@ class TicketCommentController extends AuthController
         try {
             $data['created_by_id'] = $this->currentUser()->id;
             $comment = $ticket->comments()->create($data);
+
+            Notification::send($ticket->created_by, new CommentNotification($comment, $this->currentUser()));
         }
         catch (\Exception $ex){
             $this->rollback();

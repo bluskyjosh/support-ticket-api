@@ -48,26 +48,51 @@ class User extends Authenticatable implements JWTSubject
     #endregion
 
     #region Relationships
+
+    /***
+     * Returns Query Object for all tickets created by User.
+     * Lazy loads Collection of Ticket Objects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function submitted_tickets() {
         return $this->hasMany(Ticket::class,'created_by_id');
     }
 
+    /***
+     * Returns Query Object for all tickets updated by User.
+     * Lazy loads Collection of Ticket Objects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function updated_tickets() {
         return $this->hasMany(Ticket::class, 'updated_by_id');
     }
     #endrelationships
 
     #region Public Methods
+
+    /***
+     * encrypts andd sets the users password attribute
+     * @param string $new_password
+     */
     public function setPassword(string $new_password){
         $this->password = bcrypt($new_password);
     }
 
-
+    /***
+     * Needed for JWT package.
+     * @return mixed
+     */
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
+    /***
+     * Needed for JWT package.
+     * @return array
+     */
     public function getJWTCustomClaims()
     {
         return [];

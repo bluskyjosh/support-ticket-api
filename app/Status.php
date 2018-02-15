@@ -25,6 +25,13 @@ class Status extends Model
     #endregion
 
     #region Relationships
+
+    /***
+     * Returns Query of tickets belonging to Statuse
+     * Lazy loads Collection of tickets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function tickets() {
         return $this->hasMany(Ticket::class);
     }

@@ -17,7 +17,7 @@ class UserTicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function index(UserTicketRequest $request) {
-        return $this->response($this->currentUser()->tickets,200);
+        return $this->response($this->currentUser()->tickets()->with(['category','priority','status','comments'])->get(),200);
     }
 
     /***
@@ -56,7 +56,7 @@ class UserTicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function show(UserTicketRequest $request, int $id) {
-        $ticket = $this->currentUser()->tickets()->with('comments')->findOrFail($id);
+        $ticket = $this->currentUser()->tickets()->with(['category','priority','status','comments'])->findOrFail($id);
         return $this->response($ticket,200);
 
     }
@@ -83,7 +83,7 @@ class UserTicketController extends AuthController
         }
         $this->commit();
 
-        $ticket = $ticket->fresh('comments');
+        $ticket = $ticket->fresh(['category','priority','status','comments']);
         return $this->response($ticket, 200);
     }
 

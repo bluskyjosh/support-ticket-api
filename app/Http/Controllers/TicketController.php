@@ -20,7 +20,7 @@ class TicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function index(TicketRequest $request) {
-        return $this->response(Ticket::with(['category','priority','status'])->all(), 200);
+        return $this->response(Ticket::with(['category','priority','status'])->get(), 200);
     }
 
     /***

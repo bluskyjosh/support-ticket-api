@@ -21,8 +21,7 @@ class TicketRequest extends Request
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
-                return true;
-                // return $this->isAdmin();
+                return $this->isAdmin();
 
             default:
                 return false;

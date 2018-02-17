@@ -13,7 +13,8 @@ class Priority extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'color'
     ];
 
     protected $dates = [

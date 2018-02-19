@@ -18,7 +18,7 @@ class UserTicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function index(UserTicketRequest $request) {
-        return $this->response($this->currentUser()->tickets()->with(['category','priority','status','comments'])->get(),200);
+        return $this->response($this->currentUser()->submitted_ickets()->with(['category','priority','status','comments'])->get(),200);
     }
 
     /***

@@ -137,7 +137,7 @@ class TicketCommentController extends AuthController
         // If the user is not an admin, check to see if they are the poster of the
         // original ticket. If not, do not allow them to comment.
         if(!$this->currentUser()->is_admin){
-            $ticket = $this->currentUser()->tickets()->findOrFail($ticket_id);
+            $ticket = $this->currentUser()->submitted_tickets()->findOrFail($ticket_id);
         }
         else {
             $ticket = Ticket::findOrFail($ticket_id);

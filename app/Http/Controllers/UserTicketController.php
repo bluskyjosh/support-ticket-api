@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserTicketRequest;
-use App\Mail\TicketNotification;
+use App\Notifications\TicketNotification;
+use App\Ticket;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;

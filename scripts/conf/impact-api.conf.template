@@ -29,7 +29,7 @@ server {
 #
 # Custom headers and headers various browsers *should* be OK with but aren't
 #
-			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
+			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Pragma,Expires,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
 #
 # Tell client that this pre-flight info is valid for 20 days
 #
@@ -42,13 +42,13 @@ server {
 			add_header 'Access-Control-Allow-Origin' '*' always ;
 			add_header 'Access-Control-Allow-Credentials' '*' always ;
 			add_header 'Access-Control-Allow-Methods' 'GET, POST,  PUT, PATCH, OPTIONS';
-			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
+			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Pragma,Expires,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
 		}
 		if ($request_method = 'GET') {
 			add_header 'Access-Control-Allow-Origin' '*' always ;
 			add_header 'Access-Control-Allow-Credentials' '*' always ;
 			add_header 'Access-Control-Allow-Methods' 'GET, POST,  PUT, PATCH, OPTIONS';
-			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
+			add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Pragma,Expires,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
 		}
 		if ($request_method = 'PUT') {
 			add_header 'Access-Control-Allow-Origin' '*' always ;
@@ -60,7 +60,7 @@ server {
                         add_header 'Access-Control-Allow-Origin' '*' always ;
                         add_header 'Access-Control-Allow-Credentials' '*' always ;
                         add_header 'Access-Control-Allow-Methods' 'GET, POST,  PUT, PATCH, DELETE, OPTIONS';
-                        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
+                        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Pragma,Expires,Content-Type,X-Auth-Token,X-HTTP-Method-Override,Authorization';
                 }
 	}
 

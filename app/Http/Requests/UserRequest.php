@@ -51,11 +51,12 @@ class UserRequest extends Request
                 break;
             case 'PUT':
             case 'PATCH':
+                $id = $this->route('user');
                 $rules = [
                     'name' => 'string|max:191',
                     'email' => [
                         'email',
-                        Rule::unique('users')
+                        Rule::unique('users')->ignore($id)
                     ],
                     'password' => 'string|min:8|max:191'
                 ];

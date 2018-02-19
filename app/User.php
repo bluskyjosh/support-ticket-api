@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'first_name',
         'last_name',
         'email',
+        'is_admin'
     ];
 
     protected $guarded = [

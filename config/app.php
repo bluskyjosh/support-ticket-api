@@ -53,7 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', ''),
-    'password_reset' => env('SUPPORT_TICKET_URL', 'http://localhost/'),
+    'support_ticket_url' => env('SUPPORT_TICKET_URL', 'http://localhost/'),
 
     /*
     |--------------------------------------------------------------------------

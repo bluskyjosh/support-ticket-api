@@ -15,7 +15,7 @@
 <p>Status: {{ $status }}</p>
 
 <p>
-    You can view the ticket at any time at {{ url(config('app.url').'/home/tickets/'. $ticket_id) }}
+    You can view the ticket at any time at {{ url(config('app.support_ticket_url')).'/home/tickets'. $ticket_id }}
 </p>
 
 </body>

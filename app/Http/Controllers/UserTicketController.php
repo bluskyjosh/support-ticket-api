@@ -57,7 +57,7 @@ class UserTicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function show(UserTicketRequest $request, int $id) {
-        $ticket = $this->currentUser()->tickets()->with(['category','priority','status','comments'])->findOrFail($id);
+        $ticket = $this->currentUser()->submitted_tickets()->with(['category','priority','status','comments'])->findOrFail($id);
         return $this->response($ticket,200);
 
     }

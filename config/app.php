@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', ''),
+    'url' => env('APP_URL', 'http://localhost'),
     'support_ticket_url' => env('SUPPORT_TICKET_URL', 'http://localhost/'),
 
     /*

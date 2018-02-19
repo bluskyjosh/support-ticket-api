@@ -38,7 +38,7 @@ class UserTicketController extends AuthController
             $ticket->ticket_id = Uuid::uuid4();
             $ticket->save();
 
-            Notification::send([$this->currentUser()->email], new TicketNotification($ticket));
+            Notification::send($this->currentUser(), new TicketNotification($ticket));
         }
         catch (\Exception $ex) {
             $this->rollback();

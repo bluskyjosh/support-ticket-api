@@ -21,7 +21,7 @@ class TicketCommentController extends AuthController
      */
     public function index(CommentRequest $request, int $ticket_id) {
         $ticket = $this->getTicket($ticket_id);
-        return $this->response($ticket->comments, 200);
+        return $this->response($ticket->comments()->with('created_by'), 200);
 
     }
 
@@ -56,6 +56,7 @@ class TicketCommentController extends AuthController
             throw $ex;
         }
         $this->commit();
+        $comment = $comment->fresh('created_by');
         return $this->response($comment, 200);
     }
 
@@ -70,7 +71,7 @@ class TicketCommentController extends AuthController
      */
     public function show(CommentRequest $request, int $ticket_id, int $comment_id) {
         $ticket = $this->getTicket($ticket_id);
-        return $this->response($ticket->comments()->findOrFail($comment_id), 200);
+        return $this->response($ticket->comments()->with('created_by')->findOrFail($comment_id), 200);
     }
 
     /***
@@ -96,7 +97,7 @@ class TicketCommentController extends AuthController
             throw $ex;
         }
         $this->commit();
-        $comment = $comment->fresh();
+        $comment = $comment->fresh('created_by');
         return $this->response($comment, 200);
 
     }

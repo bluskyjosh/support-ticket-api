@@ -58,7 +58,7 @@ class TicketController extends AuthController
      * @return \Illuminate\Http\Response
      */
     public function show(TicketRequest $request, int $id) {
-        $ticket = Ticket::with(['category','priority','status','comments'])->findOrFail($id);
+        $ticket = Ticket::with(['category','priority','status','comments','comments.created_by'])->findOrFail($id);
         return $this->response($ticket,200);
     }
 
@@ -88,7 +88,7 @@ class TicketController extends AuthController
             $this->rollback();
         }
         $this->commit();
-        $ticket =$ticket->fresh(['category','priority','status','comments']);
+        $ticket =$ticket->fresh(['category','priority','status','comments', 'comments.created_by']);
         return $this->response($ticket, 200);
 
     }
